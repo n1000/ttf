@@ -26,6 +26,10 @@ $ make -f Makefile.bsd
 clang -c ttf.c -Wall
 clang -o ttf ttf.o -lm
 
+# get basic usage help
+$ ./ttf
+usage: ttf [-l low_freq (Hz)] [-h high_freq (Hz)] [-r sampling_rate (Hz)] [-d character_duration (sec)] [-g character gap (sec)] string
+
 # generate a "hello world" ogg file
 $ ./ttf "hello world" | oggenc -r -q 7 -C 1 - > test.ogg
 ```

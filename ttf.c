@@ -351,8 +351,9 @@ main(int argc, char **argv)
     argc -= optind;
     argv += optind;
 
-    if (!*argv)
+    if (!*argv) {
         usage();
+    }
 
     str = *argv;
 
