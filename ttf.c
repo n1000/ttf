@@ -38,7 +38,7 @@ struct options {
 
 void output_char(struct options *, char);
 void output_gap(struct options *opt);
-void usage(void);
+void usage(const char *progname);
 
 static uint8_t char_map[][NUM_ROW][NUM_COL] = {
     {
@@ -316,6 +316,7 @@ static uint8_t char_map[][NUM_ROW][NUM_COL] = {
 int
 main(int argc, char **argv)
 {
+    const char *progname = argv[0];
     struct options opt;
     char *str;
     int ch;
@@ -344,7 +345,7 @@ main(int argc, char **argv)
             opt.char_gap = atof(optarg);
             break;
         default:
-            usage();
+            usage(progname);
             /* NOTREACHED */
         }
     }
@@ -352,7 +353,7 @@ main(int argc, char **argv)
     argv += optind;
 
     if (!*argv) {
-        usage();
+        usage(progname);
     }
 
     str = *argv;
@@ -430,13 +431,11 @@ output_char(struct options *opt, char c)
 }
 
 void
-usage(void)
+usage(const char *progname)
 {
-    extern char *__progname;
-
     fprintf(stderr, "usage: %s [-l low_freq (Hz)] "
         "[-h high_freq (Hz)] [-r sampling_rate "
         "(Hz)] [-d character_duration (sec)] [-g "
-        "character gap (sec)] string\n", __progname);
+        "character gap (sec)] string\n", progname);
     exit(1);
 }
