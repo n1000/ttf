@@ -37,6 +37,7 @@ struct options {
 };
 
 void output_char(struct options *, char);
+void output_gap(struct options *opt);
 void usage(void);
 
 static uint8_t char_map[][NUM_ROW][NUM_COL] = {
@@ -318,7 +319,6 @@ main(int argc, char **argv)
     struct options opt;
     char *str;
     int ch;
-    int n;
 
     opt.f_s = 44100;
     opt.low_freq = 400;
@@ -360,17 +360,29 @@ main(int argc, char **argv)
 
     while (*str) {
         output_char(&opt, *str);
-        for (n = 0; n < opt.f_s * opt.char_gap; ++n) {
-            int16_t val = 0;
-
-            fwrite(&val, sizeof(val), 1, stdout);
-        }
-
+        output_gap(&opt);
         ++str;
     }
 
     return 0;
 }
+
+void
+output_gap(struct options *opt)
+{
+    int n;
+
+    for (n = 0; n < opt->f_s * opt->char_gap; ++n) {
+        int16_t val = 0;
+
+        size_t r = fwrite(&val, sizeof(val), 1, stdout);
+        if (r != 1) {
+            fprintf(stderr, "error: failed to write to disk :(\n");
+            exit(1);
+        }
+    }
+}
+
 
 void
 output_char(struct options *opt, char c)
