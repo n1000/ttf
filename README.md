@@ -5,7 +5,8 @@ string is visible in the frequency domain.
 
 PCM output is sent to stdout by default.
 
-Example usage (the makefile defaults to the clang compiler):
+Example usage (the makefile defaults to the clang compiler, and is a BSD
+makefile):
 
 ```console
 $ make
