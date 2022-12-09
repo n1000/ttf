@@ -18,11 +18,13 @@ makefile):
 ```console
 # on Linux
 $ make -f Makefile.linux
+gcc -c ttf.c -Wall
+gcc -o ttf ttf.o -lm
+
+# or, on BSD
+$ make -f Makefile.bsd
 clang -c ttf.c -Wall
 clang -o ttf ttf.o -lm
-
-# on BSD
-make -f Makefile.bsd
 
 # generate a "hello world" ogg file
 $ ./ttf "hello world" | oggenc -r -q 7 -C 1 - > test.ogg
