@@ -5,7 +5,7 @@ string is visible in the frequency domain.
 
 PCM output is sent to stdout by default.
 
-Example usage:
+Example usage (the makefile defaults to the clang compiler):
 
 ```console
 $ make
@@ -13,3 +13,6 @@ clang -c ttf.c -Wall
 clang -o ttf ttf.o -lm
 $ ./ttf "hello world" | oggenc -r -q 7 -C 1 - > test.ogg
 ```
+
+The output can be viewed with a spectrum analyzer, such as [this
+one](https://www.dcode.fr/spectral-analysis).
