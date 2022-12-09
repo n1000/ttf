@@ -356,6 +356,11 @@ main(int argc, char **argv)
         usage(progname);
     }
 
+    if (isatty(STDOUT_FILENO)) {
+        fprintf(stderr, "error: refusing to write data to terminal, redirect to an output file\n");
+        exit(1);
+    }
+
     str = *argv;
 
     opt.freq_gap = (opt.high_freq - opt.low_freq) / NUM_ROW;
