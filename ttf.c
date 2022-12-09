@@ -396,10 +396,12 @@ output_char(struct options *opt, char c)
 
     c = tolower(c);
 
-    if (c >= 'a' && c <= 'z')
+    if (c >= 'a' && c <= 'z') {
         ind = c - 'a';
-    else
+    } else {
+        /* Remap to "space" character for all other characters */
         ind = 'z' - 'a' + 1;
+    }
 
     for (n = 0; n < opt->f_s * opt->duration; ++n) {
         cur_col = round(n / (opt->f_s * opt->duration /
@@ -408,8 +410,9 @@ output_char(struct options *opt, char c)
         val = 0;
 
         for (i = NUM_ROW - 1; i >= 0; --i) {
-            if (char_map[ind][i][cur_col] == 0)
+            if (char_map[ind][i][cur_col] == 0) {
                 continue;
+            }
 
             freq = opt->high_freq - (opt->freq_gap * i);
 
@@ -417,7 +420,11 @@ output_char(struct options *opt, char c)
                 opt->f_s);
         }
 
-        fwrite(&val, sizeof(val), 1, stdout);
+        size_t r = fwrite(&val, sizeof(val), 1, stdout);
+        if (r != 1) {
+            fprintf(stderr, "error: failed to write to disk :(\n");
+            exit(1);
+        }
     }
 }
 
