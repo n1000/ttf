@@ -39,7 +39,7 @@ struct options {
 void output_char(struct options *, char);
 void usage(void);
 
-static uint8_t map[][NUM_ROW][NUM_COL] = {
+static uint8_t char_map[][NUM_ROW][NUM_COL] = {
     {
       { 0, 1, 1, 1, 0 },
       { 1, 1, 0, 1, 1 },
@@ -396,7 +396,7 @@ output_char(struct options *opt, char c)
 		val = 0;
 
 		for (i = NUM_ROW - 1; i >= 0; --i) {
-			if (map[ind][i][cur_col] == 0)
+			if (char_map[ind][i][cur_col] == 0)
 				continue;
 
 			freq = opt->high_freq - (opt->freq_gap * i);
