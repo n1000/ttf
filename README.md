@@ -50,7 +50,7 @@ in  this repository):
 
 ```console
 # generate a "hello world" ogg file
-$ ./ttf "hello world" | oggenc -r -q 7 -C 1 - > test.ogg
+$ ./ttf "hello world" | oggenc -r -q 7 -C 1 - > example.ogg
 ```
 
 The output can be viewed with a spectrum analyzer, such as [this
